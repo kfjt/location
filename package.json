@@ -1,6 +1,7 @@
 {
   "name": "location",
   "version": "0.1.0",
+  "homepage": "https://kfjt.github.io/location",
   "private": true,
   "dependencies": {
     "react": "^16.10.2",
