@@ -25,18 +25,21 @@ function App() {
 }
 
 const Geolocation = () => {
-  const [coords, setCoords] = useState(({}))
+  const [coords, setCoords] = useState({})
 
   const {geolocation} = navigator
 
-  useEffect(() => {
-    if (geolocation && geolocation.getCurrentPosition) {
-      geolocation.getCurrentPosition(({coords}) => {
-        console.log(coords)
+  const getCoords = ({coords}) => {
+    console.info(coords)
         const {accuracy, latitude, longitude} = coords
         setCoords({accuracy, latitude, longitude})
-      })
     }
+
+  useEffect(() => {
+    if (geolocation && geolocation.getCurrentPosition)
+      geolocation.getCurrentPosition(getCoords, console.error)
+    const timerId = setInterval(() => geolocation.getCurrentPosition(getCoords, console.error), 1000)
+    return () => clearInterval(timerId)
   }, [geolocation])
   
   return (
